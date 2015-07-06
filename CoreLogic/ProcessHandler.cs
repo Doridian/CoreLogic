@@ -9,6 +9,7 @@ namespace CoreLogic
         private Dictionary<int, Process> processCache = new Dictionary<int, Process>();
         private HashSet<int> gameModeProcesses = new HashSet<int>();
         private bool gameModeOn = false;
+        private bool running;
         IProcessFinder finder;
 
         private bool initialSweep = false;
@@ -17,6 +18,8 @@ namespace CoreLogic
 
         public ProcessHandler(IEnumerable<IGameChecker> gameCheckers)
         {
+            running = true;
+
             this.gameCheckers = new List<IGameChecker>(gameCheckers);
 
             finder = new SimpleProcessFinder();
@@ -34,6 +37,7 @@ namespace CoreLogic
 
         public void Dispose()
         {
+            running = false;
             finder.Dispose();
             foreach (Process proc in Process.GetProcesses())
             {
@@ -67,7 +71,7 @@ namespace CoreLogic
 
         private void AssignGameMode(Process proc)
         {
-            if(initialSweep)
+            if (initialSweep || !running)
             {
                 return;
             }
