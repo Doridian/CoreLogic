@@ -49,6 +49,7 @@ namespace CoreLogic
         public override void Dispose()
         {
             running = false;
+            finderThread.Join();
         }
 
         private void ProcessStart_Thread()
