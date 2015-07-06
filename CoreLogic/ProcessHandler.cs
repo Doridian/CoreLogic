@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace CoreLogic
 {
-    class ProcessHandler
+    class ProcessHandler : IDisposable
     {
         private Dictionary<int, Process> processCache = new Dictionary<int, Process>();
         private HashSet<int> gameModeProcesses = new HashSet<int>();
@@ -32,6 +32,19 @@ namespace CoreLogic
             Console.WriteLine("EVT | Initial affinity assignment complete");
         }
 
+        public void Dispose()
+        {
+            finder.Dispose();
+            foreach (Process proc in Process.GetProcesses())
+            {
+                try
+                {
+                    proc.ProcessorAffinity = Program.PROCESSOR_ALL;
+                }
+                catch { }
+            }
+        }
+
         private string PrettyProcessName(Process proc)
         {
             return PrettyProcessName(proc, -1);
@@ -49,7 +62,7 @@ namespace CoreLogic
 
         ~ProcessHandler()
         {
-            finder.Dispose();
+            Dispose();
         }
 
         private void AssignGameMode(Process proc)

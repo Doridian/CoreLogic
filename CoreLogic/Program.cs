@@ -56,6 +56,8 @@ namespace CoreLogic
             checkers.Add(new Checker.JavaChecker("data/javagames.txt"));
             checkers.Add(new Checker.ProcessNameChecker("data/nativegames.txt"));
             ProcessHandler ph = new ProcessHandler(checkers);
+            while (Console.ReadLine() != "exit") { }
+            ph.Dispose();
         }
     }
 }
