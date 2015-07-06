@@ -53,8 +53,8 @@ namespace CoreLogic
             Console.Out.WriteLine("-------------");
 
             List<IGameChecker> checkers = new List<IGameChecker>();
-            checkers.Add(new Checker.JavaChecker("javagames.txt"));
-            checkers.Add(new Checker.ProcessNameChecker("nativegames.txt"));
+            checkers.Add(new Checker.JavaChecker("data/javagames.txt"));
+            checkers.Add(new Checker.ProcessNameChecker("data/nativegames.txt"));
             ProcessHandler ph = new ProcessHandler(checkers);
         }
     }

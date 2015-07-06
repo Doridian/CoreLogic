@@ -1,0 +1,3 @@
+JAR=Minecraft.exe
+JAR=Minecraft.jar
+MAIN=net.minecraft.client.main.Main
